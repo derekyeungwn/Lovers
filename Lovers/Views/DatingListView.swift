@@ -22,7 +22,7 @@ struct DatingListView: View {
                     }
                 }
             }
-            .navigationTitle("Dating")
+            .navigationTitle("Dating (Build: v0.1)")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $searchText, placement: .toolbar)
             .navigationBarItems(trailing: Button(action: {
