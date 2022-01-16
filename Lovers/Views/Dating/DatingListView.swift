@@ -15,15 +15,15 @@ struct DatingListView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            Form {
                 ForEach(searchResults, id: \.id){ dating in
                     NavigationLink(destination: DatingDetailView(dating: dating, deleteDating: self.deleteDating, updateDating: self.updateDating, sortDating: self.sortDating)) {
                         DatingRowView(dating: dating)
                     }
                 }
             }
-            .navigationTitle("Dating (Build: v0.1)")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Dating")
+            //.navigationBarTitleDisplayMode(.inline)
             .searchable(text: $searchText, placement: .toolbar)
             .navigationBarItems(trailing: Button(action: {
                 isPresented = true
@@ -78,7 +78,7 @@ struct DatingListView: View {
                     dateFormatter.dateFormat = "dd/MM/yyyy"
                     decoder.dateDecodingStrategy = .formatted(dateFormatter)
                     
-                    let a = try decoder.decode(Result.self, from: data)
+                    let a = try decoder.decode(Dating.Result.self, from: data)
                     
                     datingData.datings = a.data
                     datingData.datings.sort {$0.date > $1.date}
@@ -180,10 +180,6 @@ struct DatingListView: View {
             print("error")
         }
     }
-}
-
-struct Result: Codable{
-    var data: [Dating]
 }
 
 struct DatingList_Previews: PreviewProvider {

@@ -39,8 +39,20 @@ struct Dating: Codable{
         var activity: Dating.Activity = Dating.Activity(id: 0)
         var activities: [Dating.Activity] = []
     }
+    
+    struct Result: Codable{
+        var data: [Dating]
+    }
 }
 
 struct DatingDataTmp: Codable{
     var data: Dating
+}
+
+struct AppCode: Codable{
+    var cuisine: [String] = []
+    
+    struct Result: Codable{
+        var data: [AppCode]
+    }
 }

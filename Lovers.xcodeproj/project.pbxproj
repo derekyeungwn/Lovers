@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6511DCE327721EC800521130 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6511DCE227721EC800521130 /* Config.swift */; };
+		654E1ED5278F1D0F00763C55 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E1ED4278F1D0F00763C55 /* SettingView.swift */; };
+		654E1ED727924A2500763C55 /* AppCodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E1ED627924A2400763C55 /* AppCodeData.swift */; };
 		65F1588D274D2DE500BAB716 /* LoversApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F1588C274D2DE500BAB716 /* LoversApp.swift */; };
 		65F15891274D2DE900BAB716 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65F15890274D2DE900BAB716 /* Assets.xcassets */; };
 		65F15894274D2DE900BAB716 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65F15893274D2DE900BAB716 /* Preview Assets.xcassets */; };
@@ -28,6 +30,8 @@
 /* Begin PBXFileReference section */
 		6511DCE227721EC800521130 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		654B273C276D5E9300664AB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		654E1ED4278F1D0F00763C55 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		654E1ED627924A2400763C55 /* AppCodeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCodeData.swift; sourceTree = "<group>"; };
 		65F15889274D2DE500BAB716 /* Lovers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lovers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65F1588C274D2DE500BAB716 /* LoversApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoversApp.swift; sourceTree = "<group>"; };
 		65F15890274D2DE900BAB716 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +61,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		654E1ED2278F1C6A00763C55 /* Dating */ = {
+			isa = PBXGroup;
+			children = (
+				65F158A6274D2E6F00BAB716 /* ActivityEditView.swift */,
+				65F158A3274D2E6F00BAB716 /* ActivityRowView.swift */,
+				65F158A4274D2E6F00BAB716 /* DatingDetailView.swift */,
+				65F158A5274D2E6F00BAB716 /* DatingEditView.swift */,
+				65F1589E274D2E6F00BAB716 /* DatingListView.swift */,
+				65F158A1274D2E6F00BAB716 /* DatingRowView.swift */,
+				65F158A2274D2E6F00BAB716 /* LoadingView.swift */,
+				65F158A0274D2E6F00BAB716 /* MealEditView.swift */,
+				65F1589F274D2E6F00BAB716 /* MealRowView.swift */,
+			);
+			path = Dating;
+			sourceTree = "<group>";
+		};
+		654E1ED3278F1CF400763C55 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				654E1ED4278F1D0F00763C55 /* SettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		65F15880274D2DE500BAB716 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				65F1589B274D2E4E00BAB716 /* DatingData.swift */,
+				654E1ED627924A2400763C55 /* AppCodeData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -107,15 +136,8 @@
 		65F1589D274D2E6300BAB716 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				65F158A6274D2E6F00BAB716 /* ActivityEditView.swift */,
-				65F158A3274D2E6F00BAB716 /* ActivityRowView.swift */,
-				65F158A4274D2E6F00BAB716 /* DatingDetailView.swift */,
-				65F158A5274D2E6F00BAB716 /* DatingEditView.swift */,
-				65F1589E274D2E6F00BAB716 /* DatingListView.swift */,
-				65F158A1274D2E6F00BAB716 /* DatingRowView.swift */,
-				65F158A2274D2E6F00BAB716 /* LoadingView.swift */,
-				65F158A0274D2E6F00BAB716 /* MealEditView.swift */,
-				65F1589F274D2E6F00BAB716 /* MealRowView.swift */,
+				654E1ED3278F1CF400763C55 /* Setting */,
+				654E1ED2278F1C6A00763C55 /* Dating */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,10 +223,12 @@
 			files = (
 				65F158AF274D2E6F00BAB716 /* ActivityEditView.swift in Sources */,
 				65F158AE274D2E6F00BAB716 /* DatingEditView.swift in Sources */,
+				654E1ED727924A2500763C55 /* AppCodeData.swift in Sources */,
 				65F158A9274D2E6F00BAB716 /* MealEditView.swift in Sources */,
 				65F158B3274D2E7F00BAB716 /* ModelData.swift in Sources */,
 				65F1589C274D2E4E00BAB716 /* DatingData.swift in Sources */,
 				65F158AC274D2E6F00BAB716 /* ActivityRowView.swift in Sources */,
+				654E1ED5278F1D0F00763C55 /* SettingView.swift in Sources */,
 				65F158AD274D2E6F00BAB716 /* DatingDetailView.swift in Sources */,
 				65F158B4274D2E7F00BAB716 /* Model.swift in Sources */,
 				65F158AA274D2E6F00BAB716 /* DatingRowView.swift in Sources */,

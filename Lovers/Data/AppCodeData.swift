@@ -1,22 +1,21 @@
 //
-//  DatingData.swift
-//  Learning
+//  App_CodeData.swift
+//  Lovers
 //
-//  Created by Derek Yeung on 14/11/2021.
+//  Created by Derek Yeung on 15/1/2022.
 //
 
 import Foundation
-import SwiftUI
 
 @MainActor
-class DatingData: ObservableObject {
+class AppCodeData: ObservableObject {
     
-    @Published var datings: [Dating] = []
     @Published var isLoading: Bool = false
+    var appCode: AppCode = AppCode()
     
     func getData() async {
         
-        let url = URL(string: "\(API_URL)/datings/")!
+        let url = URL(string: "\(API_URL)/appCode/")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -30,10 +29,9 @@ class DatingData: ObservableObject {
             dateFormatter.dateFormat = "dd/MM/yyyy"
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
-            let a = try decoder.decode(Dating.Result.self, from: data)
+            let a = try decoder.decode(AppCode.Result.self, from: data)
             
-            datings = a.data
-            datings.sort {$0.date > $1.date}
+            appCode = a.data[0]
         }
         catch {
             print("getData Error!!!")
