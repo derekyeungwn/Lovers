@@ -13,13 +13,27 @@ struct MealRowView: View {
     var body: some View {
         HStack() {
             VStack(alignment: .leading) {
-                Text(dining.type + ": " + dining.restaurant)
+                Text(dining.type)
+                    .font(.subheadline)
+                    .foregroundColor(Color.indigo)
+                Text(dining.restaurant)
+                    .font(.subheadline)
+                if dining.location != "" && dining.area != ""{
+                    Text("\(dining.area) - \(dining.location)")
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                } else if dining.location != "" {
+                    Text("\(dining.location)")
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                } else{
+                    Text("\(dining.area)")
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                }
             }
             Spacer()
-            VStack(alignment: .leading) {
-                Text(dining.location)
-                    .font(.subheadline)
-                    .foregroundColor(Color.gray)
+            VStack(alignment: .trailing) {
                 Text(dining.cuisine)
                     .font(.subheadline)
                     .foregroundColor(Color.orange)

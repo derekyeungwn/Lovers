@@ -9,34 +9,31 @@ import SwiftUI
 
 @main
 struct LoversApp: App {
-    @StateObject private var datingData = DatingData()
-    @StateObject private var appCodeData = AppCodeData()
+    @StateObject private var loginData = LoginData()
     
     var body: some Scene {
         WindowGroup {
             ZStack() {
-                TabView {
-                    DatingListView()
-                        .task {
-                            await datingData.load()
-                        }
-                        .tabItem {
-                            Label("Dating", systemImage: "heart.fill")
-                        }
-                    //if datingData.isLoading {
-                    //    LoadingView()
-                    //}
-                    SettingView()
-                        .tabItem {
-                            Label("Setting", systemImage: "gearshape.fill")
-                        }
+               if(loginData.isSignInCompleted && loginData.isAppCodeLoaded){
+                    TabView {
+                        HomeView()
+                            .tabItem {
+                                Label("Home", systemImage: "house.fill")
+                            }
+                        DatingListView()
+                            .tabItem {
+                                Label("Dating", systemImage: "heart.fill")
+                            }
+                        AccountView()
+                            .tabItem {
+                                Label("Account", systemImage: "person.fill")
+                            }
+                    }
+                }else{
+                    LoginView()
                 }
             }
-            .environmentObject(datingData)
-            .environmentObject(appCodeData)
-            .task {
-                await appCodeData.load()
-            }
+            .environmentObject(loginData)
         }
     }
 }

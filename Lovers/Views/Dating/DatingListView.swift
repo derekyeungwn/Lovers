@@ -8,84 +8,96 @@
 import SwiftUI
 
 struct DatingListView: View {
-    @EnvironmentObject var datingData : DatingData
+    @EnvironmentObject var loginData : LoginData
+    @StateObject private var datingData = DatingData()
     @State private var isPresented = false
     @State private var searchText = ""
     @State private var newDatingData = Dating.DatingData()
     
     var body: some View {
-        NavigationView {
-            Form {
-                ForEach(searchResults, id: \.id){ dating in
-                    NavigationLink(destination: DatingDetailView(dating: dating, deleteDating: self.deleteDating, updateDating: self.updateDating, sortDating: self.sortDating)) {
-                        DatingRowView(dating: dating)
-                    }
-                }
-            }
-            .navigationTitle("Dating")
-            //.navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $searchText, placement: .toolbar)
-            .navigationBarItems(trailing: Button(action: {
-                isPresented = true
-            }) {
-                Image(systemName: "plus")
-            })
-            .sheet(isPresented: $isPresented) {
-                NavigationView {
-                    DatingEditView(datingData: $newDatingData, isPresented: $isPresented, deleteDating: self.deleteDating, isDeleteButtonShow: false)
-                        .navigationBarTitle("", displayMode: .inline)
-                        .navigationBarItems(leading: Button("Dismiss") {
-                            isPresented = false                            
-                        }, trailing: Button("Add") {
-                            isPresented = false
-                            var nextId:Int
-                            if let dating = datingData.datings.max(by: {a, b in a.id < b.id}){
-                                nextId = dating.id + 1
-                            } else {
-                                nextId = 1
-                            }
-                            let newDating = Dating(
-                                id: nextId,
-                                date: newDatingData.date,
-                                breakfast: newDatingData.breakfast,
-                                lunch: newDatingData.lunch,
-                                dinner: newDatingData.dinner,
-                                activities: newDatingData.activities
-                            )
-                            datingData.datings.append(newDating)
-                            sortDating()
-                            newDatingData = Dating.DatingData()
-                            Task {
-                                await addDating(dating: newDating)
-                            }
+        ZStack() {
+            NavigationView {
+                Form {
+                    ForEach(searchResults, id: \.id){ dating in
+                        NavigationLink(destination: DatingDetailView(dating: dating, deleteDating: self.deleteDating, updateDating: self.updateDating, sortDating: self.sortDating)) {
+                            DatingRowView(dating: dating)
                         }
-                        .disabled(newDatingData.activities.isEmpty)
-                        )
-                }
-            }
-            .refreshable {
-                do {
-                    let url = URL(string: "\(API_URL)/datings/")!
-                    var request = URLRequest(url: url)
-                    request.httpMethod = "GET"
-                    
-                    let (data, response) = try await URLSession.shared.data(for: request)
-                    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                        return
                     }
-                    let decoder = JSONDecoder()
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "dd/MM/yyyy"
-                    decoder.dateDecodingStrategy = .formatted(dateFormatter)
-                    
-                    let a = try decoder.decode(Dating.Result.self, from: data)
-                    
-                    datingData.datings = a.data
-                    datingData.datings.sort {$0.date > $1.date}
-                } catch {
-                    print("error")
+                }
+                .navigationTitle("Dating")
+                //.navigationBarTitleDisplayMode(.inline)
+                .searchable(text: $searchText, placement: .toolbar)
+                .navigationBarItems(trailing: Button(action: {
+                    isPresented = true
+                }) {
+                    Image(systemName: "plus")
+                })
+                .sheet(isPresented: $isPresented) {
+                    NavigationView {
+                        DatingEditView(datingData: $newDatingData, isPresented: $isPresented, deleteDating: self.deleteDating, isDeleteButtonShow: false)
+                            .navigationBarTitle("", displayMode: .inline)
+                            .navigationBarItems(leading: Button("Dismiss") {
+                                isPresented = false
+                            }, trailing: Button("Add") {
+                                isPresented = false
+                                var nextId:Int
+                                if let dating = datingData.datings.max(by: {a, b in a.id < b.id}){
+                                    nextId = dating.id + 1
+                                } else {
+                                    nextId = 1
+                                }
+                                let newDating = Dating(
+                                    id: nextId,
+                                    date: newDatingData.date,
+                                    breakfast: newDatingData.breakfast,
+                                    lunch: newDatingData.lunch,
+                                    dinner: newDatingData.dinner,
+                                    activities: newDatingData.activities,
+                                    user_id: loginData.login.user_id
+                                )
+                                datingData.datings.append(newDating)
+                                sortDating()
+                                newDatingData = Dating.DatingData()
+                                Task {
+                                    await addDating(dating: newDating)
+                                }
+                            }
+                            .disabled(newDatingData.activities.isEmpty)
+                            )
+                    }
+                }
+                .refreshable {
+                    do {
+                        let url = URL(string: "\(API_URL)/datings/")!
+                        var request = URLRequest(url: url)
+                        request.setValue( "Bearer \(loginData.login.token)", forHTTPHeaderField: "Authorization")
+                        request.httpMethod = "GET"
+                        
+                        let (data, response) = try await URLSession.shared.data(for: request)
+                        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                            return
+                        }
+                        let decoder = JSONDecoder()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "dd/MM/yyyy"
+                        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                        
+                        let a = try decoder.decode(Dating.Result.self, from: data)
+                        
+                        datingData.datings = a.data
+                        datingData.datings.sort {$0.date > $1.date}
+                    } catch {
+                        print("error")
+                    }
                 }
             }
+            .task {
+                await datingData.getData(token: loginData.login.token)
+            }
+            .environmentObject(datingData)
+            /*if datingData.isLoading {
+                LoadingView()
+            }*/
         }
     }
     
@@ -129,10 +141,11 @@ struct DatingListView: View {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
-            let encodedDating = try encoder.encode(DatingDataTmp(data: datingData.datings[index]))
+            let encodedDating = try encoder.encode(Dating.DatingDataTmp(data: datingData.datings[index]))
             
             let url = URL(string: "\(API_URL)/datings/\(datingData.datings[index].id)")!
             var request = URLRequest(url: url)
+            request.setValue( "Bearer \(loginData.login.token)", forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "PUT"
             
@@ -149,6 +162,7 @@ struct DatingListView: View {
         do {
             let url = URL(string: "\(API_URL)/datings/\(id)")!
             var request = URLRequest(url: url)
+            request.setValue( "Bearer \(loginData.login.token)", forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "DELETE"
             
@@ -168,10 +182,11 @@ struct DatingListView: View {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
-            let encodedDating = try encoder.encode(DatingDataTmp(data: dating))
+            let encodedDating = try encoder.encode(Dating.DatingDataTmp(data: dating))
             
             let url = URL(string: "\(API_URL)/datings/")!
             var request = URLRequest(url: url)
+            request.setValue( "Bearer \(loginData.login.token)", forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             

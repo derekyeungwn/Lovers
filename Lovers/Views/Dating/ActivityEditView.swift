@@ -10,16 +10,18 @@ import SwiftUI
 struct ActivityEditView: View {
     @Binding var activity: Dating.Activity
     @Binding var activities: [Dating.Activity]
-    
-    let locations = [
-        "上水",
-        "中環"
-    ]
+    @EnvironmentObject var loginData : LoginData
+    @State private var selectedArea = ""
     
     var body: some View {
         Form {
             Section {
                 TextField("活動", text: $activity.description)
+                Picker("地區", selection: $activity.area) {
+                    ForEach(loginData.appCode.area, id: \.self) {
+                        Text($0)
+                    }
+                }
                 TextField("地點", text: $activity.location)
                 Toggle(isOn: $activity.isMain) {
                     Text("重點活動")

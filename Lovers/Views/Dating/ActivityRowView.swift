@@ -14,15 +14,26 @@ struct ActivityRowView: View {
         HStack() {
             VStack(alignment: .leading, spacing: 2.0) {
                 Text(activity.description)
+                    .font(.subheadline)
+                if activity.location != "" && activity.area != "" {
+                    Text("\(activity.area) - \(activity.location)")
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                } else if activity.location != "" {
+                    Text(activity.location)
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                } else{
+                    Text(activity.area)
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                }
             }
             Spacer()
             if activity.isMain {
                 Image(systemName: "star.fill")
                     .foregroundColor(Color.yellow)
             }
-            Text(activity.location)
-                .font(.subheadline)
-                .foregroundColor(Color.gray)
         }
     }
 }

@@ -14,12 +14,14 @@ struct Dating: Codable{
     var lunch: Dining
     var dinner: Dining
     var activities: [Activity]
+    var user_id: String
     
     struct Dining: Codable{
         var type: String = ""
         var restaurant: String = ""
         var location: String = ""
         var cuisine: String = ""
+        var area: String = ""
     }
     
     struct Activity: Codable {
@@ -27,6 +29,7 @@ struct Dating: Codable{
         var location: String = ""
         var description: String = ""
         var isMain: Bool = false
+        var area: String = ""
     }
     
     struct DatingData{
@@ -38,21 +41,29 @@ struct Dating: Codable{
         var dining: Dating.Dining = Dating.Dining()
         var activity: Dating.Activity = Dating.Activity(id: 0)
         var activities: [Dating.Activity] = []
+        var user_id: String = "1"
     }
     
     struct Result: Codable{
         var data: [Dating]
     }
-}
-
-struct DatingDataTmp: Codable{
-    var data: Dating
+    
+    struct DatingDataTmp: Codable{
+        var data: Dating
+    }
 }
 
 struct AppCode: Codable{
     var cuisine: [String] = []
+    var area: [String] = []
     
     struct Result: Codable{
         var data: [AppCode]
     }
+}
+
+struct Login: Codable {
+    var token: String = ""
+    var user_name: String = ""
+    var user_id: String = ""
 }

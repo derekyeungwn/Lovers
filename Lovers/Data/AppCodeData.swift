@@ -9,8 +9,6 @@ import Foundation
 
 @MainActor
 class AppCodeData: ObservableObject {
-    
-    @Published var isLoading: Bool = false
     var appCode: AppCode = AppCode()
     
     func getData() async {
@@ -36,11 +34,5 @@ class AppCodeData: ObservableObject {
         catch {
             print("getData Error!!!")
         }
-    }
-    
-    func load() async {
-        isLoading = true
-        await getData()
-        isLoading = false
     }
 }

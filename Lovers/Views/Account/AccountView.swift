@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  AccountView.swift
 //  Lovers
 //
 //  Created by Derek Yeung on 12/1/2022.
@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct SettingView: View {
+struct AccountView: View {
+    @EnvironmentObject var loginData : LoginData
+    
     var body: some View {
         NavigationView {
             Form {
@@ -19,14 +21,21 @@ struct SettingView: View {
                         Text("\(APP_VER)")
                     }
                 }
+                
+                Button(action: {
+                    loginData.signOut()
+                }) {
+                    Text("Sign Out")
+                }
             }
-            .navigationBarTitle(Text("Settings"))
+            .navigationBarTitle(Text("\(loginData.login.user_name)"))
         }
     }
 }
 
-struct SettingView_Previews: PreviewProvider {
+struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView()
+        AccountView()
+            .environmentObject(LoginData())
     }
 }

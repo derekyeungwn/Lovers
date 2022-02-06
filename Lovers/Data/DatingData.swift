@@ -14,10 +14,12 @@ class DatingData: ObservableObject {
     @Published var datings: [Dating] = []
     @Published var isLoading: Bool = false
     
-    func getData() async {
+    func getData(token: String) async {
+        isLoading = true
         
         let url = URL(string: "\(API_URL)/datings/")!
         var request = URLRequest(url: url)
+        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         do {
@@ -38,11 +40,7 @@ class DatingData: ObservableObject {
         catch {
             print("getData Error!!!")
         }
-    }
-    
-    func load() async {
-        isLoading = true
-        await getData()
+        
         isLoading = false
     }
 }
