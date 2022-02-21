@@ -21,16 +21,3 @@ var datings: [Dating] = [
         user_id: "1"
     )
 ]
-
-var data: Dating.DatingData = Dating.DatingData(
-    breakfast: Dating.Dining(type: "早餐", restaurant: "ABC Cafe", location: "中環", cuisine: "日本菜", area: "旺角"),
-    lunch: Dating.Dining(type: "午餐", restaurant: "DEF Cafe2", location: "上水", cuisine: "日本菜", area: "旺角"),
-    dinner: Dating.Dining(type: "晚餐", restaurant: "Mac Pro", location: "上水", cuisine: "日本菜", area: "旺角"),
-    dining: Dating.Dining(type: "晚餐", restaurant: "Mac Pro", location: "上水", cuisine: "日本菜", area: "旺角"),
-    activity: Dating.Activity(id: 1, location: "Yuen Long", description: "Bicycle"),
-    activities: [
-        Dating.Activity(id: 1, location: "Yuen Long", description: "Bicycle", isMain: true, area: "旺角"),
-        Dating.Activity(id: 2, location: "Central", description: "Buy Watch", isMain: false, area: "旺角")
-    ],
-    user_id: "1"
-)

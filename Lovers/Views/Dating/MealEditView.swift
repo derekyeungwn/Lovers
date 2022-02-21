@@ -43,7 +43,7 @@ struct MealEditView: View {
 struct MealEdit_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MealEditView(dining: .constant(data.dining))
+            MealEditView(dining: .constant(datings[0].dinner))
                 .environmentObject(LoginData())
         }
     }

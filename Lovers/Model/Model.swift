@@ -41,7 +41,7 @@ struct Dating: Codable{
         var dining: Dating.Dining = Dating.Dining()
         var activity: Dating.Activity = Dating.Activity(id: 0)
         var activities: [Dating.Activity] = []
-        var user_id: String = "1"
+        var user_id: String = ""
     }
     
     struct Result: Codable{
@@ -56,14 +56,10 @@ struct Dating: Codable{
 struct AppCode: Codable{
     var cuisine: [String] = []
     var area: [String] = []
+    var user_name: String = ""
+    var user_id: String = ""
     
     struct Result: Codable{
         var data: [AppCode]
     }
-}
-
-struct Login: Codable {
-    var token: String = ""
-    var user_name: String = ""
-    var user_id: String = ""
 }

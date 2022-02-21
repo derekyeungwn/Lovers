@@ -21,14 +21,14 @@ struct LoginView: View {
                     .padding([.top], 50)
                     .padding([.bottom], 50)
                     //.shadow(radius: 6.0, x: 10, y: 10)
-                Image("profile-img")
+                /*Image("")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
                     .overlay(Circle()
                     .stroke(Color.white, lineWidth: 3))
                     //.shadow(radius: 9.0, x: 20, y: 10)
-                    .padding(.bottom, 40)
+                    .padding(.bottom, 40)*/
                 TextField("Email", text: self.$email)
                     .padding(10)
                     .background(Color.white)
@@ -74,11 +74,18 @@ struct LoginView: View {
                 Text("OK")
             }
         }
+        .task {
+            if KeychainService.standard.read(service: "access_token", account: "lovers") != nil {
+                loginData.isSignInCompleted = true
+                await loginData.getAppCode()
+            }
+        }
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+            .environmentObject(LoginData())
     }
 }

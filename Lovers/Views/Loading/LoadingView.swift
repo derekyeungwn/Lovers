@@ -11,7 +11,7 @@ struct LoadingView: View {
     var body: some View {
         ZStack(alignment: .center) {
             Rectangle()
-                .fill(Color.black).opacity(0.3)
+                .fill(Color.black).opacity(0)
                 .edgesIgnoringSafeArea(.all)
             ProgressView().scaleEffect(2.0, anchor: .center)
         }

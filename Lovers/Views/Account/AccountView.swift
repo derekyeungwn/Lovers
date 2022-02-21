@@ -28,7 +28,7 @@ struct AccountView: View {
                     Text("Sign Out")
                 }
             }
-            .navigationBarTitle(Text("\(loginData.login.user_name)"))
+            .navigationBarTitle(Text("\(loginData.appCode.user_name)"))
         }
     }
 }

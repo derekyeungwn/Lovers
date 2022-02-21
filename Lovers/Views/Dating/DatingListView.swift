@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DatingListView: View {
     @EnvironmentObject var loginData : LoginData
-    @StateObject private var datingData = DatingData()
+    @StateObject var datingData = DatingData()
     @State private var isPresented = false
     @State private var searchText = ""
     @State private var newDatingData = Dating.DatingData()
@@ -19,12 +19,12 @@ struct DatingListView: View {
             NavigationView {
                 Form {
                     ForEach(searchResults, id: \.id){ dating in
-                        NavigationLink(destination: DatingDetailView(dating: dating, deleteDating: self.deleteDating, updateDating: self.updateDating, sortDating: self.sortDating)) {
+                        NavigationLink(destination: DatingDetailView(dating: dating)) {
                             DatingRowView(dating: dating)
                         }
                     }
                 }
-                .navigationTitle("Dating")
+                .navigationTitle("Dating(\(datingData.datings.count))")
                 //.navigationBarTitleDisplayMode(.inline)
                 .searchable(text: $searchText, placement: .toolbar)
                 .navigationBarItems(trailing: Button(action: {
@@ -34,7 +34,7 @@ struct DatingListView: View {
                 })
                 .sheet(isPresented: $isPresented) {
                     NavigationView {
-                        DatingEditView(datingData: $newDatingData, isPresented: $isPresented, deleteDating: self.deleteDating, isDeleteButtonShow: false)
+                        DatingEditView(newDatingData: $newDatingData, isPresented: $isPresented, isDeleteButtonShow: false)
                             .navigationBarTitle("", displayMode: .inline)
                             .navigationBarItems(leading: Button("Dismiss") {
                                 isPresented = false
@@ -53,13 +53,13 @@ struct DatingListView: View {
                                     lunch: newDatingData.lunch,
                                     dinner: newDatingData.dinner,
                                     activities: newDatingData.activities,
-                                    user_id: loginData.login.user_id
+                                    user_id: loginData.appCode.user_id
                                 )
                                 datingData.datings.append(newDating)
-                                sortDating()
+                                datingData.sortDating()
                                 newDatingData = Dating.DatingData()
                                 Task {
-                                    await addDating(dating: newDating)
+                                    await datingData.addDating(dating: newDating)
                                 }
                             }
                             .disabled(newDatingData.activities.isEmpty)
@@ -67,37 +67,16 @@ struct DatingListView: View {
                     }
                 }
                 .refreshable {
-                    do {
-                        let url = URL(string: "\(API_URL)/datings/")!
-                        var request = URLRequest(url: url)
-                        request.setValue( "Bearer \(loginData.login.token)", forHTTPHeaderField: "Authorization")
-                        request.httpMethod = "GET"
-                        
-                        let (data, response) = try await URLSession.shared.data(for: request)
-                        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                            return
-                        }
-                        let decoder = JSONDecoder()
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "dd/MM/yyyy"
-                        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-                        
-                        let a = try decoder.decode(Dating.Result.self, from: data)
-                        
-                        datingData.datings = a.data
-                        datingData.datings.sort {$0.date > $1.date}
-                    } catch {
-                        print("error")
-                    }
+                    await datingData.getData()
                 }
             }
             .task {
-                await datingData.getData(token: loginData.login.token)
+                await datingData.getData()
             }
             .environmentObject(datingData)
-            /*if datingData.isLoading {
+            if datingData.isLoading {
                 LoadingView()
-            }*/
+            }
         }
     }
     
@@ -125,83 +104,13 @@ struct DatingListView: View {
             return filteredDatings
         }
     }
-    
-    private func updateDating(updatedDatingData: Dating.DatingData) async {
-        do {
-            let index = datingData.datings.firstIndex(where: {$0.id == updatedDatingData.id})!
-            datingData.datings[index].date = updatedDatingData.date
-            datingData.datings[index].breakfast = updatedDatingData.breakfast
-            datingData.datings[index].lunch = updatedDatingData.lunch
-            datingData.datings[index].dinner = updatedDatingData.dinner
-            datingData.datings[index].activities = updatedDatingData.activities
-            
-            sortDating()
-            
-            let encoder = JSONEncoder()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            encoder.dateEncodingStrategy = .formatted(dateFormatter)
-            let encodedDating = try encoder.encode(Dating.DatingDataTmp(data: datingData.datings[index]))
-            
-            let url = URL(string: "\(API_URL)/datings/\(datingData.datings[index].id)")!
-            var request = URLRequest(url: url)
-            request.setValue( "Bearer \(loginData.login.token)", forHTTPHeaderField: "Authorization")
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "PUT"
-            
-            let (_, _) = try await URLSession.shared.upload(for: request, from: encodedDating)
-        } catch {
-            print("error")
-        }
-    }
-    
-    private func deleteDating(id: Int) async {
-        if let index = datingData.datings.firstIndex(where: {$0.id == id}) {
-            datingData.datings.remove(at: index)
-        }
-        do {
-            let url = URL(string: "\(API_URL)/datings/\(id)")!
-            var request = URLRequest(url: url)
-            request.setValue( "Bearer \(loginData.login.token)", forHTTPHeaderField: "Authorization")
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "DELETE"
-            
-            let (_, _) = try await URLSession.shared.data(for: request)
-        } catch {
-            print("error")
-        }
-    }
-    
-    private func sortDating() {
-        datingData.datings.sort {$0.date > $1.date}
-    }
-    
-    private func addDating(dating: Dating) async {
-        do {
-            let encoder = JSONEncoder()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            encoder.dateEncodingStrategy = .formatted(dateFormatter)
-            let encodedDating = try encoder.encode(Dating.DatingDataTmp(data: dating))
-            
-            let url = URL(string: "\(API_URL)/datings/")!
-            var request = URLRequest(url: url)
-            request.setValue( "Bearer \(loginData.login.token)", forHTTPHeaderField: "Authorization")
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "POST"
-            
-            let (_, _) = try await URLSession.shared.upload(for: request, from: encodedDating)
-        } catch {
-            print("error")
-        }
-    }
 }
 
 struct DatingList_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             DatingListView()
-                .environmentObject(DatingData())
+                .environmentObject(LoginData())
         }
     }
 }

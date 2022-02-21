@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct DatingDetailView: View {
+    @EnvironmentObject var datingData : DatingData
     var dating: Dating
-    var deleteDating: (Int) async -> Void
-    var updateDating: (Dating.DatingData) async -> Void
-    var sortDating: () -> Void
-    @State private var datingData: Dating.DatingData = Dating.DatingData()
+    @State private var newDatingData: Dating.DatingData = Dating.DatingData()
     @State private var isPresented = false
     
     var body: some View {
@@ -33,28 +31,28 @@ struct DatingDetailView: View {
         //.navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: Button("Edit") {
             isPresented = true
-            datingData.date = dating.date
-            datingData.breakfast = dating.breakfast
-            datingData.lunch = dating.lunch
-            datingData.dinner = dating.dinner
-            datingData.activities = dating.activities
-            datingData.id = dating.id
+            newDatingData.date = dating.date
+            newDatingData.breakfast = dating.breakfast
+            newDatingData.lunch = dating.lunch
+            newDatingData.dinner = dating.dinner
+            newDatingData.activities = dating.activities
+            newDatingData.id = dating.id
         })
         .fullScreenCover(isPresented: $isPresented) {
             NavigationView {
-                DatingEditView(datingData: $datingData, isPresented: $isPresented, deleteDating: self.deleteDating, isDeleteButtonShow: true)
+                DatingEditView(newDatingData: $newDatingData, isPresented: $isPresented, isDeleteButtonShow: true)
                 .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(
                     leading: Button("Cancel") {
                     isPresented = false
                 }, trailing: Button("Done") {
                     isPresented = false
-                    sortDating()
+                    datingData.sortDating()
                     Task{
-                        await updateDating(datingData)
+                        await datingData.updateDating(updatedDatingData: newDatingData)
                     }
                 }
-                        .disabled(datingData.activities.isEmpty)
+                        .disabled(newDatingData.activities.isEmpty)
                 )
             }
         }
@@ -64,7 +62,7 @@ struct DatingDetailView: View {
 struct DatingDetail_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DatingDetailView(dating: datings[0], deleteDating: {(a: Int) in return}, updateDating: {(a: Dating.DatingData) in return},sortDating: {return})
+            DatingDetailView(dating: datings[0])
         }
     }
 }

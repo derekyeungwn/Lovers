@@ -44,7 +44,8 @@ struct ActivityEditView: View {
 struct ActivityEdit_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ActivityEditView(activity: .constant(data.activity), activities: .constant(data.activities))
+            ActivityEditView(activity: .constant(datings[0].activities[0]), activities: .constant(datings[0].activities))
         }
+        .environmentObject(LoginData())
     }
 }

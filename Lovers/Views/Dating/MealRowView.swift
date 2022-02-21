@@ -45,5 +45,6 @@ struct MealRowView: View {
 struct MealRow_Previews: PreviewProvider {
     static var previews: some View {
         MealRowView(dining: datings[0].dinner)
+            .previewLayout(.fixed(width: 300, height: 70))
     }
 }

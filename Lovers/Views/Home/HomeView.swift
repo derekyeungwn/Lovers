@@ -12,7 +12,7 @@ struct HomeView: View {
     @State private var isPresented = false
     
     var body: some View {
-        Text("hello")
+        Text("Hello, \(loginData.appCode.user_name)!")
     }
 }
 

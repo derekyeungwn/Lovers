@@ -9,7 +9,6 @@ class LoginData: ObservableObject {
     @Published var isSignInCompleted: Bool = false
     @Published var isAppCodeLoaded: Bool = false
     @Published var showingAlert: Bool = false
-    var login: Login = Login()
     var appCode: AppCode = AppCode()
     
     func signIn(email: String, password: String) async {
@@ -40,37 +39,37 @@ class LoginData: ObservableObject {
             
             if let json = try JSONSerialization.jsonObject(with: resData, options: []) as? [String: String] {
                 if let access_token = json["access_token"] {
-                        login.token = access_token
-                    login.token = json["access_token"]!
-                    login.user_name = json["user_name"]!
-                    login.user_id = json["user_id"]!
                     isSignInCompleted = true
+                    KeychainService.standard.save(data: access_token, service: "access_token", account: "lovers")
                 }
             }
             
             await getAppCode()
             
         } catch {
+            isLoading = false
             print("\(error.localizedDescription)")
         }
-        
-        isLoading = false
     }
     
     func signOut(){
-        login.token = ""
         isSignInCompleted = false
         isAppCodeLoaded = false
+        KeychainService.standard.delete(service: "access_token", account: "lovers")
     }
     
     func getAppCode() async {
+        isLoading = true
+        
         let url = URL(string: "\(API_URL)/appCode/")!
         var request = URLRequest(url: url)
+        request.setValue( "Bearer \(KeychainService.standard.read(service: "access_token", account: "lovers")!)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                isLoading = false
                 return
             }
             let decoder = JSONDecoder()
@@ -83,8 +82,10 @@ class LoginData: ObservableObject {
             appCode = a.data[0]
             
             isAppCodeLoaded = true
+            isLoading = false
         }
         catch {
+            isLoading = false
             print("\(error.localizedDescription)")
         }
     }
