@@ -25,7 +25,7 @@ struct DatingListView: View {
                     }
                 }
                 .navigationTitle("Dating(\(datingData.datings.count))")
-                //.navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitleDisplayMode(.inline)
                 .searchable(text: $searchText, placement: .toolbar)
                 .navigationBarItems(trailing: Button(action: {
                     isPresented = true
@@ -53,7 +53,8 @@ struct DatingListView: View {
                                     lunch: newDatingData.lunch,
                                     dinner: newDatingData.dinner,
                                     activities: newDatingData.activities,
-                                    user_id: loginData.appCode.user_id
+                                    user_id: loginData.appCode.user_id,
+                                    remark: newDatingData.remark
                                 )
                                 datingData.datings.append(newDating)
                                 datingData.sortDating()
@@ -68,6 +69,13 @@ struct DatingListView: View {
                 }
                 .refreshable {
                     await datingData.getData()
+                }
+            }
+            .alert("Could not connect to the server", isPresented: $datingData.showingServerAlert) {
+                Button(action: {
+                    datingData.showingServerAlert = false
+                }) {
+                    Text("OK")
                 }
             }
             .task {

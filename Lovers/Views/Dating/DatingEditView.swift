@@ -59,6 +59,10 @@ struct DatingEditView: View {
                     .disabled(newActivity.isEmpty)
                 }
             }
+            Section(header: Text("Remark")) {
+                TextEditor(text: $newDatingData.remark)
+                    .frame(height: 100)
+            }
             if isDeleteButtonShow {
                 HStack {
                     Spacer()

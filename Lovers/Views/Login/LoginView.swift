@@ -74,6 +74,14 @@ struct LoginView: View {
                 Text("OK")
             }
         }
+        .alert("Could not connect to the server", isPresented: $loginData.showingServerAlert) {
+            Button(action: {
+                loginData.isLoading = false
+                loginData.showingServerAlert = false
+            }) {
+                Text("OK")
+            }
+        }
         .task {
             if KeychainService.standard.read(service: "access_token", account: "lovers") != nil {
                 loginData.isSignInCompleted = true

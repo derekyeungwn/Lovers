@@ -18,6 +18,7 @@ var datings: [Dating] = [
             Dating.Activity(id: 1, location: "Yuen Long", description: "Bicycle", isMain: true, area: "旺角"),
             Dating.Activity(id: 2, location: "Central", description: "Buy Watch", isMain: false, area: "旺角")
         ],
-        user_id: "1"
+        user_id: "1",
+        remark: "Testing"
     )
 ]

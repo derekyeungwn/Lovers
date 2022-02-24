@@ -10,6 +10,7 @@
 		6511DCE327721EC800521130 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6511DCE227721EC800521130 /* Config.swift */; };
 		654E1ED5278F1D0F00763C55 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E1ED4278F1D0F00763C55 /* AccountView.swift */; };
 		656F848A27C06A1300E2C32A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656F848927C06A1300E2C32A /* Util.swift */; };
+		656F849127C7BEC400E2C32A /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656F849027C7BEC400E2C32A /* Test.swift */; };
 		65A234D627A4C0BD00730B8C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A234D527A4C0BD00730B8C /* LoginData.swift */; };
 		65F14EBF279B8018002005F1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F14EBE279B8018002005F1 /* LoginView.swift */; };
 		65F1588D274D2DE500BAB716 /* LoversApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F1588C274D2DE500BAB716 /* LoversApp.swift */; };
@@ -35,6 +36,7 @@
 		654B273C276D5E9300664AB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		654E1ED4278F1D0F00763C55 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		656F848927C06A1300E2C32A /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		656F849027C7BEC400E2C32A /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		65A234D527A4C0BD00730B8C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		65F14EBE279B8018002005F1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		65F15889274D2DE500BAB716 /* Lovers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lovers.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				65F6664627A5847200CD044E /* HomeView.swift */,
+				656F849027C7BEC400E2C32A /* Test.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				65F158AB274D2E6F00BAB716 /* LoadingView.swift in Sources */,
 				6511DCE327721EC800521130 /* Config.swift in Sources */,
 				65F158A8274D2E6F00BAB716 /* MealRowView.swift in Sources */,
+				656F849127C7BEC400E2C32A /* Test.swift in Sources */,
 				65F1588D274D2DE500BAB716 /* LoversApp.swift in Sources */,
 				65F6664727A5847200CD044E /* HomeView.swift in Sources */,
 			);

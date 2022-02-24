@@ -13,6 +13,7 @@ class DatingData: ObservableObject {
     
     @Published var datings: [Dating] = []
     @Published var isLoading: Bool = false
+    @Published var showingServerAlert: Bool = false
     
     func getData() async {
         isLoading = true
@@ -29,6 +30,8 @@ class DatingData: ObservableObject {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                isLoading = false
+                showingServerAlert = true
                 return
             }
             let decoder = JSONDecoder()
@@ -43,6 +46,7 @@ class DatingData: ObservableObject {
         }
         catch {
             isLoading = false
+            showingServerAlert = true
             print("getData Error!!!")
         }
         
@@ -64,8 +68,15 @@ class DatingData: ObservableObject {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "DELETE"
             
-            let (_, _) = try await URLSession.shared.data(for: request)
+            let (_, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                isLoading = false
+                showingServerAlert = true
+                return
+            }
+            
         } catch {
+            showingServerAlert = true
             print("error")
         }
     }
@@ -78,6 +89,7 @@ class DatingData: ObservableObject {
             datings[index].lunch = updatedDatingData.lunch
             datings[index].dinner = updatedDatingData.dinner
             datings[index].activities = updatedDatingData.activities
+            datings[index].remark = updatedDatingData.remark
             
             sortDating()
             
@@ -93,8 +105,14 @@ class DatingData: ObservableObject {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "PUT"
             
-            let (_, _) = try await URLSession.shared.upload(for: request, from: encodedDating)
+            let (_, response) = try await URLSession.shared.upload(for: request, from: encodedDating)
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                isLoading = false
+                showingServerAlert = true
+                return
+            }
         } catch {
+            showingServerAlert = true
             print("error")
         }
     }
@@ -113,8 +131,14 @@ class DatingData: ObservableObject {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             
-            let (_, _) = try await URLSession.shared.upload(for: request, from: encodedDating)
+            let (_, response) = try await URLSession.shared.upload(for: request, from: encodedDating)
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                isLoading = false
+                showingServerAlert = true
+                return
+            }
         } catch {
+            showingServerAlert = true
             print("error")
         }
     }

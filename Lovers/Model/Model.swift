@@ -15,6 +15,7 @@ struct Dating: Codable{
     var dinner: Dining
     var activities: [Activity]
     var user_id: String
+    var remark: String = ""
     
     struct Dining: Codable{
         var type: String = ""
@@ -42,6 +43,7 @@ struct Dating: Codable{
         var activity: Dating.Activity = Dating.Activity(id: 0)
         var activities: [Dating.Activity] = []
         var user_id: String = ""
+        var remark: String = ""
     }
     
     struct Result: Codable{

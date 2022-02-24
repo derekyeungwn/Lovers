@@ -25,10 +25,15 @@ struct DatingDetailView: View {
                     ActivityRowView(activity: activity)
                 }
             }
+            Section(header: Text("Remark")) {
+                Text(dating.remark)
+                /*TextEditor(text: $newDatingData.remark)
+                    .frame(height: 100)*/
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(Text(dating.date, style:.date))
-        //.navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: Button("Edit") {
             isPresented = true
             newDatingData.date = dating.date
@@ -37,6 +42,7 @@ struct DatingDetailView: View {
             newDatingData.dinner = dating.dinner
             newDatingData.activities = dating.activities
             newDatingData.id = dating.id
+            newDatingData.remark = dating.remark
         })
         .fullScreenCover(isPresented: $isPresented) {
             NavigationView {

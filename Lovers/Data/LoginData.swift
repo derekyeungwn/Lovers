@@ -9,6 +9,7 @@ class LoginData: ObservableObject {
     @Published var isSignInCompleted: Bool = false
     @Published var isAppCodeLoaded: Bool = false
     @Published var showingAlert: Bool = false
+    @Published var showingServerAlert: Bool = false
     var appCode: AppCode = AppCode()
     
     func signIn(email: String, password: String) async {
@@ -48,6 +49,7 @@ class LoginData: ObservableObject {
             
         } catch {
             isLoading = false
+            showingServerAlert = true
             print("\(error.localizedDescription)")
         }
     }
@@ -86,6 +88,7 @@ class LoginData: ObservableObject {
         }
         catch {
             isLoading = false
+            showingServerAlert = true
             print("\(error.localizedDescription)")
         }
     }
