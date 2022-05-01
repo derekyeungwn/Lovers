@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DatingEditView: View {
     @EnvironmentObject var datingData : DatingData
-    @Binding var newDatingData: Dating.DatingData
+    @Binding var newDatingData: DatingData.Dating.Data
     @Binding var isPresented: Bool
     var isDeleteButtonShow: Bool
     @State private var newActivity: String = ""
@@ -49,7 +49,7 @@ struct DatingEditView: View {
                                 nextId = 1
                                 isMain = true
                             }
-                            newDatingData.activities.append(Dating.Activity(id: nextId, description: newActivity, isMain: isMain))
+                            newDatingData.activities.append(DatingData.Dating.Activity(id: nextId, description: newActivity, isMain: isMain))
                             newActivity = ""
                         }
                     })
@@ -86,7 +86,7 @@ struct DatingEditView: View {
         }
     }
     
-    private func binding(for activity: Dating.Activity) -> Binding<Dating.Activity> {
+    private func binding(for activity: DatingData.Dating.Activity) -> Binding<DatingData.Dating.Activity> {
         guard let index = newDatingData.activities.firstIndex(where: { $0.id == activity.id }) else {
             fatalError("Can't find activity in array")
         }
@@ -110,7 +110,7 @@ struct DatingEditView: View {
 struct DatingEdit_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DatingEditView(newDatingData: .constant(Dating.DatingData()), isPresented: .constant(false), isDeleteButtonShow: true)
+            DatingEditView(newDatingData: .constant(DatingData.Dating.Data()), isPresented: .constant(false), isDeleteButtonShow: true)
         }
     }
 }

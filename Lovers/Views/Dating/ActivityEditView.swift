@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ActivityEditView: View {
-    @Binding var activity: Dating.Activity
-    @Binding var activities: [Dating.Activity]
+    @Binding var activity: DatingData.Dating.Activity
+    @Binding var activities: [DatingData.Dating.Activity]
     @EnvironmentObject var loginData : LoginData
     @State private var selectedArea = ""
     
@@ -47,5 +47,6 @@ struct ActivityEdit_Previews: PreviewProvider {
             ActivityEditView(activity: .constant(datings[0].activities[0]), activities: .constant(datings[0].activities))
         }
         .environmentObject(LoginData())
+        .preferredColorScheme(.dark)
     }
 }

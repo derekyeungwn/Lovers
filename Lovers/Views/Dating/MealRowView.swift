@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MealRowView: View {
-    var dining: Dating.Dining
+    var dining: DatingData.Dating.Dining
     
     var body: some View {
         HStack() {
@@ -19,7 +19,7 @@ struct MealRowView: View {
                 Text(dining.restaurant)
                     .font(.subheadline)
                 if dining.location != "" && dining.area != ""{
-                    Text("\(dining.area) - \(dining.location)")
+                    Text("\(dining.location) - \(dining.area)")
                         .font(.footnote)
                         .foregroundColor(Color.gray)
                 } else if dining.location != "" {
@@ -46,5 +46,6 @@ struct MealRow_Previews: PreviewProvider {
     static var previews: some View {
         MealRowView(dining: datings[0].dinner)
             .previewLayout(.fixed(width: 300, height: 70))
+            .preferredColorScheme(.dark)
     }
 }

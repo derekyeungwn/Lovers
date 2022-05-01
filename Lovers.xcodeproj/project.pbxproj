@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6511DCE327721EC800521130 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6511DCE227721EC800521130 /* Config.swift */; };
+		654237EB27D2DDDC00D74F59 /* DatingListFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654237EA27D2DDDC00D74F59 /* DatingListFilterView.swift */; };
 		654E1ED5278F1D0F00763C55 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E1ED4278F1D0F00763C55 /* AccountView.swift */; };
 		656F848A27C06A1300E2C32A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656F848927C06A1300E2C32A /* Util.swift */; };
-		656F849127C7BEC400E2C32A /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656F849027C7BEC400E2C32A /* Test.swift */; };
+		659B2B8227D8EE28001BAF41 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659B2B8127D8EE28001BAF41 /* SignUpView.swift */; };
+		659B2B8427D8F4D0001BAF41 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659B2B8327D8F4D0001BAF41 /* ForgotPasswordView.swift */; };
 		65A234D627A4C0BD00730B8C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A234D527A4C0BD00730B8C /* LoginData.swift */; };
 		65F14EBF279B8018002005F1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F14EBE279B8018002005F1 /* LoginView.swift */; };
 		65F1588D274D2DE500BAB716 /* LoversApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F1588C274D2DE500BAB716 /* LoversApp.swift */; };
@@ -27,16 +29,17 @@
 		65F158AE274D2E6F00BAB716 /* DatingEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F158A5274D2E6F00BAB716 /* DatingEditView.swift */; };
 		65F158AF274D2E6F00BAB716 /* ActivityEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F158A6274D2E6F00BAB716 /* ActivityEditView.swift */; };
 		65F158B3274D2E7F00BAB716 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F158B1274D2E7F00BAB716 /* ModelData.swift */; };
-		65F158B4274D2E7F00BAB716 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F158B2274D2E7F00BAB716 /* Model.swift */; };
 		65F6664727A5847200CD044E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6664627A5847200CD044E /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6511DCE227721EC800521130 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		654237EA27D2DDDC00D74F59 /* DatingListFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingListFilterView.swift; sourceTree = "<group>"; };
 		654B273C276D5E9300664AB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		654E1ED4278F1D0F00763C55 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		656F848927C06A1300E2C32A /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		656F849027C7BEC400E2C32A /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		659B2B8127D8EE28001BAF41 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		659B2B8327D8F4D0001BAF41 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		65A234D527A4C0BD00730B8C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		65F14EBE279B8018002005F1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		65F15889274D2DE500BAB716 /* Lovers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lovers.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +57,6 @@
 		65F158A5274D2E6F00BAB716 /* DatingEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatingEditView.swift; sourceTree = "<group>"; };
 		65F158A6274D2E6F00BAB716 /* ActivityEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityEditView.swift; sourceTree = "<group>"; };
 		65F158B1274D2E7F00BAB716 /* ModelData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
-		65F158B2274D2E7F00BAB716 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		65F6664627A5847200CD044E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 				65F158A1274D2E6F00BAB716 /* DatingRowView.swift */,
 				65F158A0274D2E6F00BAB716 /* MealEditView.swift */,
 				65F1589F274D2E6F00BAB716 /* MealRowView.swift */,
+				654237EA27D2DDDC00D74F59 /* DatingListFilterView.swift */,
 			);
 			path = Dating;
 			sourceTree = "<group>";
@@ -104,6 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				65F14EBE279B8018002005F1 /* LoginView.swift */,
+				659B2B8127D8EE28001BAF41 /* SignUpView.swift */,
+				659B2B8327D8F4D0001BAF41 /* ForgotPasswordView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -172,7 +177,6 @@
 		65F158B0274D2E7500BAB716 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				65F158B2274D2E7F00BAB716 /* Model.swift */,
 				65F158B1274D2E7F00BAB716 /* ModelData.swift */,
 			);
 			path = Model;
@@ -182,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				65F6664627A5847200CD044E /* HomeView.swift */,
-				656F849027C7BEC400E2C32A /* Test.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -265,16 +268,17 @@
 				65F158AC274D2E6F00BAB716 /* ActivityRowView.swift in Sources */,
 				654E1ED5278F1D0F00763C55 /* AccountView.swift in Sources */,
 				65F158AD274D2E6F00BAB716 /* DatingDetailView.swift in Sources */,
-				65F158B4274D2E7F00BAB716 /* Model.swift in Sources */,
 				65F14EBF279B8018002005F1 /* LoginView.swift in Sources */,
 				65A234D627A4C0BD00730B8C /* LoginData.swift in Sources */,
 				65F158AA274D2E6F00BAB716 /* DatingRowView.swift in Sources */,
+				654237EB27D2DDDC00D74F59 /* DatingListFilterView.swift in Sources */,
+				659B2B8427D8F4D0001BAF41 /* ForgotPasswordView.swift in Sources */,
 				656F848A27C06A1300E2C32A /* Util.swift in Sources */,
 				65F158A7274D2E6F00BAB716 /* DatingListView.swift in Sources */,
 				65F158AB274D2E6F00BAB716 /* LoadingView.swift in Sources */,
+				659B2B8227D8EE28001BAF41 /* SignUpView.swift in Sources */,
 				6511DCE327721EC800521130 /* Config.swift in Sources */,
 				65F158A8274D2E6F00BAB716 /* MealRowView.swift in Sources */,
-				656F849127C7BEC400E2C32A /* Test.swift in Sources */,
 				65F1588D274D2DE500BAB716 /* LoversApp.swift in Sources */,
 				65F6664727A5847200CD044E /* HomeView.swift in Sources */,
 			);
@@ -406,7 +410,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Lovers/Preview Content\"";
 				DEVELOPMENT_TEAM = 2PCY89HM3Y;
 				ENABLE_PREVIEWS = YES;
@@ -416,14 +420,14 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = derekandjoely.com.Lovers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -439,7 +443,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Lovers/Preview Content\"";
 				DEVELOPMENT_TEAM = 2PCY89HM3Y;
 				ENABLE_PREVIEWS = YES;
@@ -449,14 +453,14 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = derekandjoely.com.Lovers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -7,7 +7,8 @@
 
 import Foundation
 
-let APP_VER = "1.0"
-
-let API_URL = "https://www.derekandjoely.com/api/v1"
-//let API_URL = "http://192.168.1.108:8888/api/v1"
+struct Config {
+  static let APP_VER = "1.0"
+  static let API_URL = "https://www.derekyeungwn.com/api/v1"
+  //static let API_URL = "http://192.168.1.108:8888/api/v1"
+}

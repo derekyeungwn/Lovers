@@ -9,17 +9,21 @@ import SwiftUI
 
 @main
 struct LoversApp: App {
-    @StateObject private var loginData = LoginData()
+    @StateObject var loginData: LoginData
+    
+    init() {
+        self._loginData = StateObject(wrappedValue: LoginData())
+    }
     
     var body: some Scene {
         WindowGroup {
             ZStack() {
                if(loginData.isSignInCompleted && loginData.isAppCodeLoaded){
                     TabView {
-                        HomeView()
+                        /*8HomeView()
                             .tabItem {
                                 Label("Home", systemImage: "house.fill")
-                            }
+                            }*/
                         DatingListView()
                             .tabItem {
                                 Label("Dating", systemImage: "heart.fill")

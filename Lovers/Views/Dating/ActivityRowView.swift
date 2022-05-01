@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActivityRowView: View {
-    var activity: Dating.Activity
+    var activity: DatingData.Dating.Activity
     
     var body: some View {
         HStack() {
@@ -16,7 +16,7 @@ struct ActivityRowView: View {
                 Text(activity.description)
                     .font(.subheadline)
                 if activity.location != "" && activity.area != "" {
-                    Text("\(activity.area) - \(activity.location)")
+                    Text("\(activity.location) - \(activity.area)")
                         .font(.footnote)
                         .foregroundColor(Color.gray)
                 } else if activity.location != "" {
@@ -42,5 +42,6 @@ struct ActivityRow_Previews: PreviewProvider {
     static var previews: some View {
         ActivityRowView(activity: datings[0].activities[0])
             .previewLayout(.fixed(width: 300, height: 70))
+            .preferredColorScheme(.dark)
     }
 }

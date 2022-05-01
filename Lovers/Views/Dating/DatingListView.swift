@@ -9,66 +9,104 @@ import SwiftUI
 
 struct DatingListView: View {
     @EnvironmentObject var loginData : LoginData
-    @StateObject var datingData = DatingData()
+    @StateObject var datingData: DatingData
     @State private var isPresented = false
+    @State private var isPresentFilter = false
     @State private var searchText = ""
-    @State private var newDatingData = Dating.DatingData()
+    @State private var newDatingData = DatingData.Dating.Data()
+    @State private var datingFilterSelection = DatingData.Dating.DatingFilterSelection()
+    
+    init() {
+        self._datingData = StateObject(wrappedValue: DatingData())
+    }
     
     var body: some View {
         ZStack() {
             NavigationView {
-                Form {
-                    ForEach(searchResults, id: \.id){ dating in
-                        NavigationLink(destination: DatingDetailView(dating: dating)) {
-                            DatingRowView(dating: dating)
+                VStack(){
+                    HStack{
+                        Spacer()
+                        Button(action:{
+                            isPresentFilter = true
+                        }) {
+                            Label("篩選", systemImage: "slider.horizontal.3")
                         }
+                        .padding(.trailing, 20)
                     }
-                }
-                .navigationTitle("Dating(\(datingData.datings.count))")
-                .navigationBarTitleDisplayMode(.inline)
-                .searchable(text: $searchText, placement: .toolbar)
-                .navigationBarItems(trailing: Button(action: {
-                    isPresented = true
-                }) {
-                    Image(systemName: "plus")
-                })
-                .sheet(isPresented: $isPresented) {
-                    NavigationView {
-                        DatingEditView(newDatingData: $newDatingData, isPresented: $isPresented, isDeleteButtonShow: false)
-                            .navigationBarTitle("", displayMode: .inline)
-                            .navigationBarItems(leading: Button("Dismiss") {
-                                isPresented = false
-                            }, trailing: Button("Add") {
-                                isPresented = false
-                                var nextId:Int
-                                if let dating = datingData.datings.max(by: {a, b in a.id < b.id}){
-                                    nextId = dating.id + 1
-                                } else {
-                                    nextId = 1
-                                }
-                                let newDating = Dating(
-                                    id: nextId,
-                                    date: newDatingData.date,
-                                    breakfast: newDatingData.breakfast,
-                                    lunch: newDatingData.lunch,
-                                    dinner: newDatingData.dinner,
-                                    activities: newDatingData.activities,
-                                    user_id: loginData.appCode.user_id,
-                                    remark: newDatingData.remark
-                                )
-                                datingData.datings.append(newDating)
-                                datingData.sortDating()
-                                newDatingData = Dating.DatingData()
-                                Task {
-                                    await datingData.addDating(dating: newDating)
+                    List {
+                        if datingFilterSelection.isOnlyShowRemarkRecord {
+                            ForEach(searchResults.filter {$0.remark != ""}, id: \.id){ dating in
+                                NavigationLink(destination: DatingDetailView(dating: dating)) {
+                                    DatingRowView(dating: dating)
                                 }
                             }
-                            .disabled(newDatingData.activities.isEmpty)
-                            )
+                        }else{
+                            ForEach(searchResults, id: \.id){ dating in
+                                NavigationLink(destination: DatingDetailView(dating: dating)) {
+                                    DatingRowView(dating: dating)
+                                }
+                            }
+                        }
                     }
-                }
-                .refreshable {
-                    await datingData.getData()
+                    .listStyle(InsetListStyle())
+                    .navigationTitle("Dating(\(datingData.datings.count))")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .searchable(text: $searchText, placement: .toolbar)
+                    .navigationBarItems(trailing: Button(action: {
+                        isPresented = true
+                    }) {
+                        Image(systemName: "plus")
+                    })
+                    .fullScreenCover(isPresented: $isPresentFilter) {
+                        NavigationView {
+                            DatingListFilterView(isPresentFilter: $isPresentFilter, datingFilterSelection: $datingFilterSelection)
+                            .navigationBarTitle("篩選條件", displayMode: .inline)
+                            .navigationBarItems(leading: Button(action:{
+                                isPresentFilter = false
+                            }){Image(systemName: "xmark")},trailing: Button("重設") {
+                                datingFilterSelection.isOnlyShowRemarkRecord = false
+                            })
+                        }
+                    }
+                    .sheet(isPresented: $isPresented) {
+                        NavigationView {
+                            DatingEditView(newDatingData: $newDatingData, isPresented: $isPresented, isDeleteButtonShow: false)
+                                .navigationBarTitle("", displayMode: .inline)
+                                .navigationBarItems(leading: Button("Dismiss") {
+                                    isPresented = false
+                                }, trailing: Button("Add") {
+                                    isPresented = false
+                                    var nextId:Int
+                                    if let dating = datingData.datings.max(by: {a, b in a.id < b.id}){
+                                        nextId = dating.id + 1
+                                    } else {
+                                        nextId = 1
+                                    }
+                                    let newDating = DatingData.Dating(
+                                        id: nextId,
+                                        date: newDatingData.date,
+                                        breakfast: newDatingData.breakfast,
+                                        lunch: newDatingData.lunch,
+                                        dinner: newDatingData.dinner,
+                                        activities: newDatingData.activities,
+                                        user_id: loginData.appCode.user_id,
+                                        remark: newDatingData.remark
+                                    )
+                                    datingData.datings.append(newDating)
+                                    datingData.sortDating()
+                                    newDatingData = DatingData.Dating.Data()
+                                    Task {
+                                        await datingData.addDating(dating: newDating)
+                                    }
+                                }
+                                .disabled(newDatingData.activities.isEmpty)
+                                )
+                        }
+                    }
+                    .refreshable {
+                        await datingData.getData()
+                    }
+                    Spacer()
                 }
             }
             .alert("Could not connect to the server", isPresented: $datingData.showingServerAlert) {
@@ -88,11 +126,11 @@ struct DatingListView: View {
         }
     }
     
-    var searchResults: [Dating] {
+    var searchResults: [DatingData.Dating] {
         if searchText.isEmpty {
             return datingData.datings
         } else {
-            var filteredDatings: [Dating] = []
+            var filteredDatings: [DatingData.Dating] = []
             for dating in datingData.datings {
                 if dating.lunch.restaurant.contains(searchText) || dating.dinner.restaurant.contains(searchText) || dating.breakfast.restaurant.contains(searchText){
                     filteredDatings.append(dating)
@@ -119,6 +157,7 @@ struct DatingList_Previews: PreviewProvider {
         Group {
             DatingListView()
                 .environmentObject(LoginData())
+                .preferredColorScheme(.dark)
         }
     }
 }

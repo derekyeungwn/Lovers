@@ -18,7 +18,7 @@ struct AccountView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        Text("\(APP_VER)")
+                        Text("\(Config.APP_VER)")
                     }
                 }
                 
@@ -37,5 +37,6 @@ struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         AccountView()
             .environmentObject(LoginData())
+            .preferredColorScheme(.dark)
     }
 }

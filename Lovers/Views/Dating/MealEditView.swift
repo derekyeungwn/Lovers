@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MealEditView: View {
-    @Binding var dining: Dating.Dining
+    @Binding var dining: DatingData.Dating.Dining
     @EnvironmentObject var loginData : LoginData
     @State private var isInit:Bool = false
     @State private var selectedCuisine = ""
@@ -45,6 +45,7 @@ struct MealEdit_Previews: PreviewProvider {
         NavigationView {
             MealEditView(dining: .constant(datings[0].dinner))
                 .environmentObject(LoginData())
+                .preferredColorScheme(.dark)
         }
     }
 }

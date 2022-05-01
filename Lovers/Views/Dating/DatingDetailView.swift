@@ -9,8 +9,8 @@ import SwiftUI
 
 struct DatingDetailView: View {
     @EnvironmentObject var datingData : DatingData
-    var dating: Dating
-    @State private var newDatingData: Dating.DatingData = Dating.DatingData()
+    var dating: DatingData.Dating
+    @State private var newDatingData: DatingData.Dating.Data = DatingData.Dating.Data()
     @State private var isPresented = false
     
     var body: some View {
@@ -70,5 +70,6 @@ struct DatingDetail_Previews: PreviewProvider {
         NavigationView {
             DatingDetailView(dating: datings[0])
         }
+        .preferredColorScheme(.dark)
     }
 }
